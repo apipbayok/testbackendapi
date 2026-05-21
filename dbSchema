@@ -1,0 +1,110 @@
+/*
+ Navicat Premium Dump SQL
+
+ Source Server         : 127.0.0.1
+ Source Server Type    : MySQL
+ Source Server Version : 100428 (10.4.28-MariaDB)
+ Source Host           : localhost:3306
+ Source Schema         : tesbackend
+
+ Target Server Type    : MySQL
+ Target Server Version : 100428 (10.4.28-MariaDB)
+ File Encoding         : 65001
+
+ Date: 21/05/2026 21:27:20
+*/
+
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for m_banner
+-- ----------------------------
+DROP TABLE IF EXISTS `m_banner`;
+CREATE TABLE `m_banner` (
+  `bannerid` int(11) NOT NULL AUTO_INCREMENT,
+  `banner_name` varchar(40) DEFAULT NULL,
+  `banner_image` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`bannerid`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- ----------------------------
+-- Records of m_banner
+-- ----------------------------
+BEGIN;
+INSERT INTO `m_banner` (`bannerid`, `banner_name`, `banner_image`, `description`) VALUES (1, 'Banner 1', 'https://minio.nutech-integrasi.com/take-home-test/banner/Banner-1.png', 'Lerem Ipsum Dolor sit amet');
+INSERT INTO `m_banner` (`bannerid`, `banner_name`, `banner_image`, `description`) VALUES (2, 'Banner 2', 'https://minio.nutech-integrasi.com/take-home-test/banner/Banner-2.png', 'Lerem Ipsum Dolor sit amet');
+INSERT INTO `m_banner` (`bannerid`, `banner_name`, `banner_image`, `description`) VALUES (3, 'Banner 3', 'https://minio.nutech-integrasi.com/take-home-test/banner/Banner-3.png', 'Lerem Ipsum Dolor sit amet');
+INSERT INTO `m_banner` (`bannerid`, `banner_name`, `banner_image`, `description`) VALUES (4, 'Banner 4', 'https://minio.nutech-integrasi.com/take-home-test/banner/Banner-4.png', 'Lerem Ipsum Dolor sit amet');
+INSERT INTO `m_banner` (`bannerid`, `banner_name`, `banner_image`, `description`) VALUES (5, 'Banner 5', 'https://minio.nutech-integrasi.com/take-home-test/banner/Banner-5.png', 'Lerem Ipsum Dolor sit amet');
+INSERT INTO `m_banner` (`bannerid`, `banner_name`, `banner_image`, `description`) VALUES (6, 'Banner 6', 'https://minio.nutech-integrasi.com/take-home-test/banner/Banner-6.png', 'Lerem Ipsum Dolor sit amet');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for m_layanan
+-- ----------------------------
+DROP TABLE IF EXISTS `m_layanan`;
+CREATE TABLE `m_layanan` (
+  `layananid` int(11) NOT NULL AUTO_INCREMENT,
+  `lay_code` varchar(20) NOT NULL,
+  `lay_nama` varchar(25) NOT NULL,
+  `lay_ico` varchar(255) DEFAULT NULL,
+  `tarif` double(8,0) NOT NULL,
+  PRIMARY KEY (`layananid`),
+  UNIQUE KEY `lay_code` (`lay_code`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- ----------------------------
+-- Records of m_layanan
+-- ----------------------------
+BEGIN;
+INSERT INTO `m_layanan` (`layananid`, `lay_code`, `lay_nama`, `lay_ico`, `tarif`) VALUES (1, 'PLN', 'PLN', NULL, 40000);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for m_user
+-- ----------------------------
+DROP TABLE IF EXISTS `m_user`;
+CREATE TABLE `m_user` (
+  `userid` int(11) NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(30) NOT NULL,
+  `last_name` varchar(30) DEFAULT NULL,
+  `email` varchar(40) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `saldo` decimal(10,0) NOT NULL DEFAULT 0,
+  `photo` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`userid`),
+  UNIQUE KEY `indexEmail` (`email`),
+  KEY `indexId` (`userid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- ----------------------------
+-- Records of m_user
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+-- ----------------------------
+-- Table structure for transaksi
+-- ----------------------------
+DROP TABLE IF EXISTS `transaksi`;
+CREATE TABLE `transaksi` (
+  `transid` int(11) NOT NULL AUTO_INCREMENT,
+  `tanggal` datetime NOT NULL DEFAULT current_timestamp(),
+  `layid` int(11) DEFAULT NULL,
+  `trans_type` enum('PAYMENT','TOPUP') DEFAULT NULL,
+  `amount` decimal(10,0) NOT NULL,
+  `userid` int(11) NOT NULL,
+  `inv_numb` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`transid`),
+  KEY `indexid` (`userid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- ----------------------------
+-- Records of transaksi
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+SET FOREIGN_KEY_CHECKS = 1;
